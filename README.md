@@ -1,4 +1,3 @@
-// ...existing code...
 # nhaccuatui_lyrics_crawler
 
 Simple script to extract song metadata and lyrics from saved nhaccuatui.com HTML pages and export them to a CSV dataset.
@@ -22,4 +21,4 @@ python3 -m pip install beautifulsoup4
    ```bash
    python3 crawler.py
    ```
-3. Output file: `lyrics_dataset.csv``
+3. Output file: `lyrics_dataset.csv`
