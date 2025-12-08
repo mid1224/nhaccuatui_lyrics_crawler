@@ -21,4 +21,4 @@ python3 -m pip install beautifulsoup4
    ```bash
    python3 crawler.py
    ```
-3. Output file: `lyrics_dataset.csv``
+3. Output file: `lyrics_dataset.csv`
