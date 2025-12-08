@@ -1,4 +1,3 @@
-// ...existing code...
 # nhaccuatui_lyrics_crawler
 
 Simple script to extract song metadata and lyrics from saved nhaccuatui.com HTML pages and export them to a CSV dataset.
