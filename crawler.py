@@ -3,8 +3,7 @@ import csv
 from bs4 import BeautifulSoup
 
 # --- CONFIGURATION ---
-# Replace this with the folder path where your HTML files are stored
-INPUT_FOLDER = r'./original_htmls' 
+INPUT_FOLDER = r'./original_htmls'
 OUTPUT_FILE = 'lyrics_dataset.csv'
 # ---------------------
 
@@ -39,7 +38,7 @@ def extract_from_file(file_path):
         
         if lyrics_div:
             # Use ". " to separate lines with a dot and a space
-            lyrics = lyrics_div.get_text(separator='. ', strip=True)
+            lyrics = lyrics_div.get_text(separator='\n', strip=True)
         else:
             # Return None so we can skip this file in the main loop
             return None
@@ -52,46 +51,37 @@ def extract_from_file(file_path):
 
 def main():
     count = 0
-    
-    # Open CSV file for writing
-    # 'utf-8-sig' helps Excel open the file correctly with Vietnamese characters
+
     with open(OUTPUT_FILE, 'w', encoding='utf-8-sig', newline='') as outfile:
-        
-        # Define columns
-        fieldnames = ['title', 'artist', 'lyrics']
-        
-        # QUOTE_ALL ensures lyrics with newlines don't break the CSV format
+        # Add minimal labeling columns
+        fieldnames = ['id', 'source_file', 'title', 'artist', 'lyrics', 'topic']
         writer = csv.DictWriter(outfile, fieldnames=fieldnames, quoting=csv.QUOTE_ALL)
-        
-        # Write the header row
         writer.writeheader()
-        
-        # Loop through all files in the folder
-        # Check if the folder exists first to avoid FileNotFoundError
+
         if not os.path.exists(INPUT_FOLDER):
             print(f"Error: The folder '{INPUT_FOLDER}' does not exist.")
             return
 
         for filename in os.listdir(INPUT_FOLDER):
-            if filename.endswith(".html"):
+            if filename.lower().endswith(".html"):
                 file_path = os.path.join(INPUT_FOLDER, filename)
                 result = extract_from_file(file_path)
-                
+
                 if result:
                     title, artist, lyrics = result
-                    
-                    # Double check if lyrics are valid before writing
                     if not lyrics or lyrics == "[No lyrics found]":
                         continue
 
                     writer.writerow({
+                        'id': os.path.splitext(filename)[0],
+                        'source_file': filename,
                         'title': title,
                         'artist': artist,
-                        'lyrics': lyrics
+                        'lyrics': lyrics,
+                        'topic': ""  # fill manually later, e.g. "breakup_heartbreak"
                     })
-                    
+
                     count += 1
-                    # Print progress every 100 files
                     if count % 100 == 0:
                         print(f"Processed {count} songs...")
 
