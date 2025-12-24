@@ -46,4 +46,4 @@ original_htmls/*
 !original_htmls/.gitkeep
 
 # output file
-lyrics_dataset.csv
+lyrics_dataset.txt

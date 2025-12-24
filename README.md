@@ -17,8 +17,9 @@ python3 -m pip install beautifulsoup4
 
 ## Usage
 1. Save nhaccuatui song pages (HTML) into the `original_htmls/` folder.
-2. Run the crawler:
+2. Change the .html file names to the label name. (Example: love.html)
+3. Run the crawler:
    ```bash
    python3 crawler.py
    ```
-3. Output file: `lyrics_dataset.csv`
+4. Output file: `lyrics_dataset.txt`
